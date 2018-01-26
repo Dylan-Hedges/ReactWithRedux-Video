@@ -2,12 +2,13 @@
 import React, { Component } from 'react';
 
 
+//Gives the class added functionality from React.Component
 class SearchBar extends Component {
-    //Initalizes state
+    //Initalizes state - called every time a new instance is created
     constructor(props){
         //Calls the "props" method inside of "Component" (Which is inside of 'react')
         super(props);
-        //Manually set state = object, Creates a new object (containing a property called "term") and pass it into "this.state", term: '' aka search term, if user serarch term is not blank then record change, updates to be what the user types into the input field
+        //Sets inital state = object, creates a new object (containing a property called "term") and pass it into "this.state", "term: ''" aka search term, if user serarch term is not blank then record change, updates to be what the user types into the input field, we only ever manually set the state in the "constructor()" function
         this.state = { term: ''};
     }
     render(){
@@ -17,7 +18,7 @@ class SearchBar extends Component {
                 <input 
                     //Update the user input on screen (only updates after rerendering)
                     value={this.state.term}
-                    //Update the state to what the user has typed and rerender the component (due to ".setState")
+                    //Update the state to what the user has typed (".setState" also rerenders the component whenever it is called, we never set the state manually e.g "this.state.term = event.target.value")
                     onChange = {event => this.setState({term: event.target.value})} 
                 />
             </div>

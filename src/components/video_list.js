@@ -1,11 +1,11 @@
 import React from 'react';
 import VideoListItem from './video_list_item';
 
-//(props) refers to "videos={this.state.videos}" passed in from index.js
+//(props) refers to "videos={this.state.videos}" passed from the parent "App" in index.js
 const VideoList = (props) => {
     //Using ".map" we can loop through the videos and execute a function for each iteration (built in iterator and alternative to for loops)
     const videoItems = props.videos.map((video) => {
-        //key={video.etag} - takes the "etag" for each video (as returned by the YouTube API) and assigns it to each video as its key (removes error messages)
+        //Passes key and video into VideoListItem.js - key={video.etag} - takes the "etag" for each video (as returned by the YouTube API) and assigns it to each video as its key (removes error messages), the key allows React to update the records efficently
         return <VideoListItem key={video.etag} video={video} />
     })
     

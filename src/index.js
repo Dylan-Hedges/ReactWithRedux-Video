@@ -1,5 +1,5 @@
 //----------IMPORT REACT-------(as a JS module)
-//React Library - Create and manage components //from 'react' - Go find the library called React (React was installed in the application as a dependency (node modules folder) when we ran "npm install")//import React - save it into the variable claled React
+//React Library - Create and manage components - Go find the library called React (React was installed in the application as a dependency (node modules folder) when we ran "npm install")//import React - save it into the variable claled React
 import React, {Component} from 'react';
 //React DOM - Takes components and renders it into the DOM
 import ReactDOM from 'react-dom';
@@ -15,16 +15,17 @@ const API_KEY = "AIzaSyC5-JN-0YCtNasuWKd1MWffS54Ei6ZkdSI";
 
 
 //----------CREATE COMPONENT-------
+//Creates a type of component (this is a class not an instance, we can have many instances of this component)
 class App extends Component {
-    //Adds state to our App - (we need state to display reccomened video list and update when user makes new search)
+    //Adds state - (we need state to display reccomened video list and update when user makes new search)
     constructor(props){
-        //Call the "prop" method from "Component" (which is inside 'react')
+        //Calls the "prop" method from "Component" (which is inside 'react')
         super(props)
-        //Set inital state to be an object containing an empty Array called "videos"
-        this.state = {videos: []};
-        //Perform Youtube search, save result in "(videos)" and execute callback function - Takes an object (containing our API key and a search term) and executes a callback function ( "(videos)" is a new variable and does not refer to "videos:" defined above)
+        //Sets inital state - to be an object containing an empty Array called "videos" (as we will be displaying a list of videos)
+        this.state = {videos: [] };
+        //Performs Youtube search - save result in "(videos)" and execute callback function - Takes an object (containing our API key and a search term) and executes a callback function ( "(videos)" is a new variable and does not refer to "videos:" defined above)
         YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
-            //Update state with results and rerender the page - Refactored, when the key and the property are the same name we only need to write it once, its the same as "this.setState({videos: videos})"
+            //Updates state - with results and rerender the page - Refactored, when the key and the property are the same name we only need to write it once, its the same as "{videos: videos}"
             this.setState({videos});
         });
     }
@@ -43,5 +44,5 @@ class App extends Component {
 
 
 //---------OUTPUT HTML INTO THE DOM----------(so user can see it)
-//"<App />" = instance ("App" = class), JSX tags (< />) turns App (class) into an instance to be rendered into the DOM, document.querySelector('.container') - the location in the .html where we render the instance
+//Renders generated HTML on the page - "<App />" = creates an instance of the class "App" (run each time the page loads), JSX tags (< />) turns App (class) into an instance to be rendered into the DOM, document.querySelector('.container') - the location in the index.html file where the App instance/generated HTML will be rendered, <App /> is the same as <App></App> (works only when there is nothing inside of the tags) 
 ReactDOM.render(<App />, document.querySelector('.container'));
