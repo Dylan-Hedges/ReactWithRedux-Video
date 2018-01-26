@@ -1,7 +1,6 @@
 //Import React.Component and save it in the variable "Component"
 import React, { Component } from 'react';
 
-
 //Gives the class added functionality from React.Component
 class SearchBar extends Component {
     //Initalizes state - called every time a new instance is created
@@ -12,17 +11,23 @@ class SearchBar extends Component {
         this.state = { term: ''};
     }
     render(){
-        //Input component - this.setState() ONLY update state using this method, "{term: event.target.value}" to what the user has inputted, the DOM is rerendered each time a change occurs //Create new input + add event handler ("onChange") + arrow function "=>" + action "console.log()", DONT do "this.state.term = event.target.value" to change the state to what the user has inputted
+        //Input component - this.setState() ONLY update state using this method, "{term: event.target.value}" to what the user has inputted, the DOM is rerendered each time a change occurs //Create new input + add event handler ("onChange") + arrow function "=>" + action "console.log()", DONT do "this.state.term = event.target.value" to change the state to what the user has inputted, when we rerender our state all children are also rerendered
         return (
             <div className="search-bar">
                 <input 
-                    //Update the user input on screen (only updates after rerendering)
-                    value={this.state.term}
-                    //Update the state to what the user has typed (".setState" also rerenders the component whenever it is called, we never set the state manually e.g "this.state.term = event.target.value")
-                    onChange = {event => this.setState({term: event.target.value})} 
-                />
+                //Update the user input on screen (only updates after rerendering)
+                value={this.state.term}
+                //When the user input changes "onInputChange" and is passed the new term
+                onChange = {event => this.onInputChange(event.target.value)} />
             </div>
         );
+    }
+    
+    onInputChange(term){
+        //Sets components state with the new term and rerenders the page
+        this.setState({term});
+        //Executes the callback function "onSearchTermChange" in "index.js" with the new term
+        this.props.onSearchTermChange(term);
     }
 }
 
@@ -34,6 +39,10 @@ export default SearchBar;
 
 
 //-------------------------OLD CODE-----------------------------------------
+ //Update the state to what the user has typed (".setState" also rerenders the component whenever it is called, we never set the state manually e.g "this.state.term = event.target.value")
+// onChange = {event => this.setState({term: event.target.value})} 
+               
+
 //import React from 'react';
 //class SearchBar extends React.Component {
 
