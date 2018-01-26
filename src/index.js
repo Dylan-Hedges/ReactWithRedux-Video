@@ -9,6 +9,8 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 //We have to define the path for files we create
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
+
 //Youtube API key
 const API_KEY = "AIzaSyC5-JN-0YCtNasuWKd1MWffS54Ei6ZkdSI"; 
 
@@ -22,21 +24,30 @@ class App extends Component {
         //Calls the "prop" method from "Component" (which is inside 'react')
         super(props)
         //Sets inital state - to be an object containing an empty Array called "videos" (as we will be displaying a list of videos)
-        this.state = {videos: [] };
-        //Performs Youtube search - save result in "(videos)" and execute callback function - Takes an object (containing our API key and a search term) and executes a callback function ( "(videos)" is a new variable and does not refer to "videos:" defined above)
+        this.state = {
+            videos: [], 
+            selectedVideo: null
+        };
+        //Searches Youtube for a list of videos - saves result in "(videos)" and execute callback function - Takes an object (containing our API key and a search term) and executes a callback function ( "(videos)" is a new variable and does not refer to "videos:" defined above)
         YTSearch({key: API_KEY, term: 'surfboards'}, (videos) => {
-            //Updates state - with results and rerender the page - Refactored, when the key and the property are the same name we only need to write it once, its the same as "{videos: videos}"
-            this.setState({videos});
+            //Updates state - with results and rerender the page - Refactored, when the key and the property are the same name we only need to write it once, its the same as "{videos: videos}", "selectedVideo: videos[0]" makes the first video in the search the main video "<VideoDetail video={this.state.selectedVideo}/>""
+            this.setState({
+                videos: videos,
+                selectedVideo: videos[0]
+            });
         });
     }
     
     //Renders the page
     render(){
         return(
-            // Pass the YTSearch data or "props" (videos) to the video_list.js file which will display it as a <ul>
+            //<SearchBar /> displays the search bar on screen, <VideoDetail /> displays the main/selected video, <VideoList /> passes the YTSearch data or "props" (videos) to the video_list.js file which will display a list of videos as a <ul>, we pass a property "onVideoSelect" containing a function to video_list.js, "onVideoSelect" updates the main video with whatever you select (passed as a property to video_list.js)
             <div>
                 <SearchBar />
-                <VideoList videos={this.state.videos} />
+                <VideoDetail video={this.state.selectedVideo}/>
+                <VideoList 
+                    onVideoSelect={selectedVideo => this.setState({selectedVideo})}
+                    videos={this.state.videos} />
             </div>
         );
     }

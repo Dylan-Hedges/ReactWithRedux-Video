@@ -14,7 +14,7 @@ class SearchBar extends Component {
     render(){
         //Input component - this.setState() ONLY update state using this method, "{term: event.target.value}" to what the user has inputted, the DOM is rerendered each time a change occurs //Create new input + add event handler ("onChange") + arrow function "=>" + action "console.log()", DONT do "this.state.term = event.target.value" to change the state to what the user has inputted
         return (
-            <div>
+            <div className="search-bar">
                 <input 
                     //Update the user input on screen (only updates after rerendering)
                     value={this.state.term}
